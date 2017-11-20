@@ -52,10 +52,10 @@ def probability_of_priors(labels):
     return probabilities
 
 
-def pixel_likelihoods(organized_data,laplace_constant=1):
+def pixel_likelihoods(organized_data, laplace_constant=1):
     list_of = []
     for digit in organized_data:
-        length=len(digit)
+        length = len(digit)
         likelihood = [0] * 28
         for i in range(0, 28):
             likelihood[i] = [laplace_constant] * 28
@@ -67,11 +67,11 @@ def pixel_likelihoods(organized_data,laplace_constant=1):
 
         for i in range(0, 28):
             for j in range(0, 28):
-                likelihood[i][j] /= (length+laplace_constant*10)
+                likelihood[i][j] /= (length + laplace_constant * 10)
 
         list_of.append(likelihood)
 
-        #for row in likelihood:
+        # for row in likelihood:
         #    print(row)
     return list_of
 
