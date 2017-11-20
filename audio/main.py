@@ -3,7 +3,7 @@ import mp2_ec
 
 if __name__=="__main__":
 
-    # Make sure to run only one at a time for clarity
+    # Make sure to run only one at a time for clarity, comment out the ones not in use
 
     # MP3 2.1 and 2.2 implementation
     #mp21_22.part_1()
