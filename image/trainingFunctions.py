@@ -70,9 +70,9 @@ def pixel_likelihoods(organized_data,laplace_constant=1):
                 likelihood[i][j] /= (length+laplace_constant*10)
 
         list_of.append(likelihood)
-        
-        for row in likelihood:
-            print(row)
+
+        #for row in likelihood:
+        #    print(row)
     return list_of
 
 
