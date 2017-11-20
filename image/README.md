@@ -9,9 +9,9 @@ getting best/worst matches per digit
 
 build Naive Bayes classifiers for feature sets of n*m disjoint/overlapping pixel patches and report the following:
 
-Test set accuracies for disjoint patches of size 2*2, 2*4, 4*2, 4*4.
+Test set accuracies for disjoint patches of size 2 x 2, 2 x 4, 4 x 2, 4 x 4.
 
-Test set accuracies for overlapping patches of size 2*2, 2*4, 4*2, 4*4, 2*3, 3*2, 3*3.
+Test set accuracies for overlapping patches of size 2 x 2, 2 x 4, 4 x 2, 4 x 4, 2 x 3, 3 x 2, 3 x 3.
 
 Discussion of the trends you have observed for the different feature sets (including single pixels), in particular, why certain features work better than others for this task.
 
@@ -20,6 +20,6 @@ Brief discussion of running time for training and testing for the different feat
 
 ## Steps Remaining For Extra Credit Points 
 
-terenary features
+Terenary features
 
 Face Data Application
