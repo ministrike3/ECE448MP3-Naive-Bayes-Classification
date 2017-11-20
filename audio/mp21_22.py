@@ -110,7 +110,7 @@ def part_1():
     y_test=np.array(test_results)
 
     # Doing the machine learning
-    nb=BernoulliNB(alpha=1).fit(X_train,y_train)
+    nb=BernoulliNB(alpha=3).fit(X_train,y_train)
     predictions=nb.predict(X_test)
 
     # The end result
@@ -166,5 +166,5 @@ def part_2():
 if __name__=="__main__":
 
     # Depending on which part you want to run, make sure to comment out th other part
-    #part_1()
-    part_2()
+    part_1()
+    #part_2()
