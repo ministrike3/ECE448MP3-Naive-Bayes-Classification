@@ -148,7 +148,7 @@ def part_2():
     y_test=np.array(test_labels)
 
     # Doing the machine learning
-    nb=BernoulliNB(alpha=1).fit(X_train,y_train)
+    nb=BernoulliNB(alpha=2).fit(X_train,y_train)
     predictions=nb.predict(X_test)
 
     # Tuning the predictions by adding 1
