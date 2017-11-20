@@ -1,6 +1,8 @@
 import sys
 import os
 import numpy as np
+import pandas as pd
+import csv
 import re
 from statistics import mean
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
@@ -8,6 +10,10 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 from mp21_22 import BernoulliNB
 import mp21_22
 np.set_printoptions(precision=6)
+
+# ---------------------------------------------------------------------------------------
+# MultinomialNB Class                                                                    |
+# ---------------------------------------------------------------------------------------
 
 class MultinomialNB(object):
     def __init__(self, alpha=1.0):
@@ -27,6 +33,11 @@ class MultinomialNB(object):
 
     def predict(self, X):
         return np.argmax(self.predict_log_proba(X), axis=1)
+
+
+# ---------------------------------------------------------------------------------------
+# Utility Functions                                                                      |
+# ---------------------------------------------------------------------------------------
 
 def feature_tuner(training_data, length2, width):
     new_text=open(training_data, "r")
@@ -69,6 +80,160 @@ def binarize(input_data):
 
     return input_data
 
+def label_grab():
+    training_path=os.getcwd()+'/txt_yesno/training'
+    training_labels_full=[]
+    for txt in os.listdir(training_path):
+        if ("txt" in txt):
+            new_txt=txt.replace(".txt", "")
+            new_txt=new_txt.replace(".csv", "")
+            str_numr_txt=new_txt.replace("_", "")
+            temp_list=[]
+            for num in str_numr_txt:
+                temp_list.append(int(num))
+            training_labels_full.append(temp_list)
+
+    label_data=[]
+    for line in training_labels_full:
+        for label in line:
+            label_data.append(label)
+
+    return label_data
+
+def csv_gen():
+    training_path=os.getcwd()+'/txt_yesno/training'
+    for txt in os.listdir(training_path):
+        if (".txt" in txt):
+            path=training_path+"/"+txt
+            txt_file=open(path, "r")
+            notxt=txt.replace(".txt", "")
+            three_d_list=[]
+            partial_list=[]
+            for line in txt_file.readlines():
+                new_line=line.replace("\n", "")
+                new_line=new_line.replace(" ", "1")
+                new_line=new_line.replace("%", "0")
+
+                for num in new_line:
+                    partial_list.append(int(num))
+                if(len(partial_list)==150):
+                    three_d_list.append(partial_list)
+                    partial_list=[]
+
+            headers=[]
+            for num in list(range(150)):
+                headers.append("Label-"+str(num))
+
+            three_d_list.insert(0, headers)
+            with open(alt_path, 'w') as data:
+                a=csv.writer(data)
+                a.writerows(three_d_list)
+
+def feature_grab():
+    feature_data=[]
+    training_path=os.getcwd()+'/txt_yesno/training'
+    for csv in os.listdir(training_path):
+        if (".csv" in csv):
+            path=training_path+"/"+csv
+            df=pd.read_csv(path)
+            mat_1=df.iloc[:,10:20].as_matrix(columns=None).ravel().tolist()
+            mat_2=df.iloc[:,20:30].as_matrix(columns=None).ravel().tolist()
+            mat_3=df.iloc[:,30:40].as_matrix(columns=None).ravel().tolist()
+            mat_4=df.iloc[:,40:50].as_matrix(columns=None).ravel().tolist()
+            mat_5=df.iloc[:,50:60].as_matrix(columns=None).ravel().tolist()
+            mat_6=df.iloc[:,60:70].as_matrix(columns=None).ravel().tolist()
+            mat_7=df.iloc[:,70:80].as_matrix(columns=None).ravel().tolist()
+            mat_8=df.iloc[:,80:90].as_matrix(columns=None).ravel().tolist()
+
+            feature_data.append(mat_1)
+            feature_data.append(mat_2)
+            feature_data.append(mat_3)
+            feature_data.append(mat_4)
+            feature_data.append(mat_5)
+            feature_data.append(mat_6)
+            feature_data.append(mat_7)
+            feature_data.append(mat_8)
+
+    return feature_data
+
+def test_data_gen(pathway):
+    yesno_path=os.getcwd()+'/txt_yesno/'+pathway
+    no_data=[]
+    for txt in os.listdir(yesno_path):
+        if (".txt" in txt):
+            path=yesno_path+"/"+txt
+            txt_file=open(path, "r")
+            notxt=txt.replace(".txt", "")
+            three_d_list=[]
+            partial_list=[]
+            for line in txt_file.readlines():
+                new_line=line.replace("\n", "")
+                new_line=new_line.replace(" ", "1")
+                new_line=new_line.replace("%", "0")
+                if (len(new_line)==10):
+                    for sym in new_line:
+                        partial_list.append(int(sym))
+                if (len(partial_list)>0):
+                    three_d_list.append(partial_list)
+                    partial_list=[]
+
+            test_no_data=[]
+            total_train=[]
+            length=len(three_d_list)
+            count=0
+
+            while(count<length):
+                for symbol in three_d_list[count]:
+                    total_train.append(symbol)
+                count=count+1
+                if(count%25==0):
+                    test_no_data.append(total_train)
+                    total_train=[]
+
+            no_data.append(test_no_data)
+
+    ret_data=[]
+    for error in no_data:
+        for real_list in error:
+            ret_data.append(real_list)
+
+    return ret_data
+
+
+
+# ---------------------------------------------------------------------------------------
+# Extra Credit Part 1                                                                    |
+# ---------------------------------------------------------------------------------------
+
+def part1():
+
+    # Accumulating the training and testing labels and data
+    train_labels=label_grab()
+    train_features=feature_grab()
+    test_labels=[0]*50 + [1]*50
+    test_features=test_data_gen('no_test')+test_data_gen('yes_test')
+
+    X_train=np.array(train_features)
+    y_train=np.array(train_labels)
+    X_test=np.array(test_features)
+    y_test=np.array(test_labels)
+
+    # Doing the machine learning
+    nb=BernoulliNB(alpha=2).fit(X_train,y_train)
+    predictions=nb.predict(X_test)
+
+    # The end result
+    print("Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+    print()
+    print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
+    print()
+    print("Accuracy: "+str(accuracy_score(y_test, predictions)))
+
+
+
+# ---------------------------------------------------------------------------------------
+# Extra Credit Part 2                                                                    |
+# ---------------------------------------------------------------------------------------
 
 def part2(yesno=True):
 
@@ -160,6 +325,11 @@ def part2(yesno=True):
         print("Accuracy: "+str(accuracy_score(y_test, predictions)))
 
 
+
+# ---------------------------------------------------------------------------------------
+# Extra Credit Part 3                                                                    |
+# ---------------------------------------------------------------------------------------
+
 def part3(bin_val=True):
     no_training=os.getcwd()+'/no/no_train.txt'
     yes_training=os.getcwd()+'/yes/yes_train.txt'
@@ -239,34 +409,3 @@ def part3(bin_val=True):
         print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
         print()
         print("Accuracy: "+str(accuracy_score(y_test, predictions)))
-
-
-
-if __name__=="__main__":
-    part2(yesno=False)
-    #part3(bin_val=False)
-
-'''
-training_path=os.getcwd()+'/txt_yesno/training'
-training_labels_full=[]
-for txt in os.listdir(training_path):
-    new_txt=txt.replace(".txt", "")
-    str_numr_txt=new_txt.replace("_", "")
-    temp_list=[]
-    for num in str_numr_txt:
-        temp_list.append(int(num))
-    training_labels_full.append(temp_list)
-
-for labels in training_labels_full:
-    print(labels)
-
-path=training_path+"/0_0_0_0_1_1_1_1.txt"
-txt_file=open(path, "r")
-for line in txt_file.readlines():
-    new_line=line.replace("\n", "")
-    new_line=new_line.replace(" ", "1")
-    new_line=new_line.replace("%", "0")
-    #comma_line=re.sub(r'([0-9])(?!$)', r'\1,', new_line)
-
-    print(comma_line)
-'''
