@@ -1,25 +1,25 @@
 # Image Classifcation
-## Steps Remaining
+## Steps Remaining For Full Credit
 
 odds calculation 
 
 getting best/worst matches per digit
 
-## Compeleted
-Reading Input
+## Steps Remaining For Part 1.2 for additional points
 
-Organizing Input
+build Naive Bayes classifiers for feature sets of n*m disjoint/overlapping pixel patches and report the following:
 
-Calculating Likelyhood
+Test set accuracies for disjoint patches of size 2*2, 2*4, 4*2, 4*4.
 
-Calculating Prior
+Test set accuracies for overlapping patches of size 2*2, 2*4, 4*2, 4*4, 2*3, 3*2, 3*3.
 
-Smoothing
+Discussion of the trends you have observed for the different feature sets (including single pixels), in particular, why certain features work better than others for this task.
 
-Naive Bayes
+Brief discussion of running time for training and testing for the different feature sets (which ones are faster and why, and how does the running time scale with feature set size).
 
-MAP Decision Making
 
-Figuring Out Best Value for the Laplace Smoothing Constant
+## Steps Remaining For Extra Credit Points 
 
-Confusion Matrix
+terenary features
+
+Face Data Application
