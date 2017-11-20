@@ -1,6 +1,7 @@
 import sys
 import os
 import numpy as np
+from sklearn.metrics import confusion_matrix
 
 np.set_printoptions(precision=6)
 
@@ -60,75 +61,45 @@ def feature_tuner(training_data):
 
     return train_no_data
 
-no_training=os.getcwd()+'/no/no_train.txt'
-yes_training=os.getcwd()+'/yes/yes_train.txt'
-no_testing=os.getcwd()+'/no/no_test.txt'
-yes_testing=os.getcwd()+'/yes/yes_test.txt'
+if __name__=="__main__":
+    no_training=os.getcwd()+'/no/no_train.txt'
+    yes_training=os.getcwd()+'/yes/yes_train.txt'
+    no_testing=os.getcwd()+'/no/no_test.txt'
+    yes_testing=os.getcwd()+'/yes/yes_test.txt'
 
-# Independent trainping data
-no_train=feature_tuner(no_training)
-yes_train=feature_tuner(yes_training)
+    # Independent trainping data
+    no_train=feature_tuner(no_training)
+    yes_train=feature_tuner(yes_training)
 
-# Independent testing data
-no_test=feature_tuner(no_testing)
-yes_test=feature_tuner(yes_testing)
+    # Independent testing data
+    no_test=feature_tuner(no_testing)
+    yes_test=feature_tuner(yes_testing)
 
-# Labels for each of the train data
-no_labels=[0]*131
-yes_labels=[1]*140
+    # Labels for each of the train data
+    no_labels=[0]*131
+    yes_labels=[1]*140
 
-# Labels for the test data
-no_test_labels=[0]*50
-yes_test_labels=[1]*50
-
-
-#Setting the parameters for training
-train=no_train+yes_train
-results=no_labels+yes_labels
-
-# Setting the parameters for the testing
-test=no_test+yes_test
-test_results=no_test_labels+yes_test_labels
-
-X_train=np.array(train)
-y_train=np.array(results)
-X_test=np.array(test)
-y_test=np.array(test_results)
-
-# Doing the machine learning
-nb=BernoulliNB(alpha=1).fit(X_train,y_train)
-predictions=nb.predict(y_test)
+    # Labels for the test data
+    no_test_labels=[0]*50
+    yes_test_labels=[1]*50
 
 
+    #Setting the parameters for training
+    train=no_train+yes_train
+    results=no_labels+yes_labels
 
-'''
-X=np.array(train_no_data)
-y=np.array(no_labels)
+    # Setting the parameters for the testing
+    test=no_test+yes_test
+    test_results=no_test_labels+yes_test_labels
 
-nb=BernoulliNB(alpha=1).fit(X,y)
-'''
+    X_train=np.array(train)
+    y_train=np.array(results)
+    X_test=np.array(test)
+    y_test=np.array(test_results)
 
-'''
-for aud in three_d_list:
-    if (count<25):
-        for sym in aud:
-            total_train.append(sym)
-        count=count+1
-        if (count==25):
-            train_no_data.append(total_train)
-            count=0
+    # Doing the machine learning
+    nb=BernoulliNB(alpha=1).fit(X_train,y_train)
+    predictions=nb.predict(X_test)
 
-for data in train_no_data:
-    print(data)
-'''
-
-
-
-
-'''
-for i in (list(range(len(three_d_list)))):
-    three_d_list[i].insert(0,0)
-
-for aud in three_d_list:
-    print(len(aud))
-'''
+    # The end result
+    print(confusion_matrix(y_test, predictions))
