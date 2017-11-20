@@ -1,7 +1,9 @@
 # Image Classifcation
 ## Steps Remaining
 
-Odds Ratios
+odds calculation 
+
+getting best/worst matches per digit
 
 ## Compeleted
 Reading Input
