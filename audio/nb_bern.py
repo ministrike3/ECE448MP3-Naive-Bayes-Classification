@@ -1,7 +1,7 @@
 import sys
 import os
 import numpy as np
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 
 np.set_printoptions(precision=6)
 
@@ -102,4 +102,8 @@ if __name__=="__main__":
     predictions=nb.predict(X_test)
 
     # The end result
-    print(confusion_matrix(y_test, predictions))
+    print("Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+    print()
+    print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
+    print()
+    print("Accuracy: "+str(accuracy_score(y_test, predictions)))
