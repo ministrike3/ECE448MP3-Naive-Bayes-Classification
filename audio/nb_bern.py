@@ -1,6 +1,7 @@
 import sys
 import os
 import numpy as np
+
 np.set_printoptions(precision=6)
 
 class BernoulliNB(object):
@@ -10,7 +11,7 @@ class BernoulliNB(object):
     def fit(self,X, y):
         count_sample=X.shape[0]
         seperated=[[x for x, t in zip(X,y) if t==c] for c in np.unique(y)]
-        self.class_log_prior_T=[np.log(len(i)/count_sample) for i in seperated]
+        self.class_log_prior_=[np.log(len(i)/count_sample) for i in seperated]
         count=np.array([np.array(i).sum(axis=0) for i in seperated]) + self.alpha
         smoothing=2*self.alpha
         n_doc = np.array([len(i) + smoothing for i in seperated])
@@ -61,22 +62,42 @@ def feature_tuner(training_data):
 
 no_training=os.getcwd()+'/no/no_train.txt'
 yes_training=os.getcwd()+'/yes/yes_train.txt'
+no_testing=os.getcwd()+'/no/no_test.txt'
+yes_testing=os.getcwd()+'/yes/yes_test.txt'
 
 # Independent trainping data
 no_train=feature_tuner(no_training)
 yes_train=feature_tuner(yes_training)
 
+# Independent testing data
+no_test=feature_tuner(no_testing)
+yes_test=feature_tuner(yes_testing)
+
 # Labels for each of the train data
 no_labels=[0]*131
 yes_labels=[1]*140
 
-#Setting the parameters
+# Labels for the test data
+no_test_labels=[0]*50
+yes_test_labels=[1]*50
+
+
+#Setting the parameters for training
 train=no_train+yes_train
 results=no_labels+yes_labels
 
-X=np.array(train)
-y=np.array(results)
-nb=BernoulliNB(alpha=1).fit(X,y)
+# Setting the parameters for the testing
+test=no_test+yes_test
+test_results=no_test_labels+yes_test_labels
+
+X_train=np.array(train)
+y_train=np.array(results)
+X_test=np.array(test)
+y_test=np.array(test_results)
+
+# Doing the machine learning
+nb=BernoulliNB(alpha=1).fit(X_train,y_train)
+predictions=nb.predict(y_test)
 
 
 
