@@ -5,6 +5,10 @@ from sklearn.metrics import confusion_matrix, classification_report, accuracy_sc
 
 np.set_printoptions(precision=6)
 
+# ---------------------------------------------------------------------------------------
+# BernoulliNB Class                                                                      |
+# ---------------------------------------------------------------------------------------
+
 class BernoulliNB(object):
     def __init__(self, alpha=1.0):
         self.alpha=alpha
@@ -24,6 +28,13 @@ class BernoulliNB(object):
 
     def predict(self, X):
         return np.argmax(self.predict_log_proba(X), axis=1)
+
+
+
+
+# ---------------------------------------------------------------------------------------
+# Utility Functions                                                                      |
+# ---------------------------------------------------------------------------------------
 
 def feature_tuner(training_data, length2, width):
     new_text=open(training_data, "r")
@@ -72,6 +83,9 @@ def label_extraction(data_path):
     return labels
 
 
+# ---------------------------------------------------------------------------------------
+# Submission Part 1                                                                      |
+# ---------------------------------------------------------------------------------------
 
 def part_1():
     no_training=os.getcwd()+'/no/no_train.txt'
@@ -110,7 +124,7 @@ def part_1():
     y_test=np.array(test_results)
 
     # Doing the machine learning
-    nb=BernoulliNB(alpha=1).fit(X_train,y_train)
+    nb=BernoulliNB(alpha=3).fit(X_train,y_train)
     predictions=nb.predict(X_test)
 
     # The end result
@@ -120,6 +134,12 @@ def part_1():
     print()
     print("Accuracy: "+str(accuracy_score(y_test, predictions)))
 
+
+
+
+# ---------------------------------------------------------------------------------------
+# Submission Part 2                                                                      |
+# ---------------------------------------------------------------------------------------
 
 def part_2():
 
@@ -161,10 +181,3 @@ def part_2():
     print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
     print()
     print("Accuracy: "+str(accuracy_score(y_test, predictions)))
-
-
-if __name__=="__main__":
-
-    # Depending on which part you want to run, make sure to comment out th other part
-    #part_1()
-    part_2()
