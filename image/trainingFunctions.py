@@ -53,7 +53,7 @@ def probability_of_priors(labels):
 
 
 def pixel_likelihoods(organized_data):
-    list_of_likelihoods = []
+    list_of = []
     for digit in organized_data:
         likelihood = [0] * 28
         for i in range(0, 28):
@@ -63,10 +63,8 @@ def pixel_likelihoods(organized_data):
                 for j in range(0, 28):
                     if sample[i][j] != ' ':
                         likelihood[i][j] += 1
-        for row in likelihood:
-            print(row)
-        list_of_likelihoods.append(likelihood)
-    return list_of_likelihoods
+        list_of.append(likelihood)
+    return list_of
 
 
 if __name__ == "__main__":
