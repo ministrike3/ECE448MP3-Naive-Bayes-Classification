@@ -136,14 +136,15 @@ def feature_grab():
         if (".csv" in csv):
             path=training_path+"/"+csv
             df=pd.read_csv(path)
-            mat_1=df.iloc[:,10:20].as_matrix(columns=None).ravel().tolist()
-            mat_2=df.iloc[:,20:30].as_matrix(columns=None).ravel().tolist()
-            mat_3=df.iloc[:,30:40].as_matrix(columns=None).ravel().tolist()
-            mat_4=df.iloc[:,40:50].as_matrix(columns=None).ravel().tolist()
-            mat_5=df.iloc[:,50:60].as_matrix(columns=None).ravel().tolist()
-            mat_6=df.iloc[:,60:70].as_matrix(columns=None).ravel().tolist()
-            mat_7=df.iloc[:,70:80].as_matrix(columns=None).ravel().tolist()
-            mat_8=df.iloc[:,80:90].as_matrix(columns=None).ravel().tolist()
+
+            mat_1=df.iloc[:,30:40].as_matrix(columns=None).ravel().tolist()
+            mat_2=df.iloc[:,40:50].as_matrix(columns=None).ravel().tolist()
+            mat_3=df.iloc[:,50:60].as_matrix(columns=None).ravel().tolist()
+            mat_4=df.iloc[:,60:70].as_matrix(columns=None).ravel().tolist()
+            mat_5=df.iloc[:,70:80].as_matrix(columns=None).ravel().tolist()
+            mat_6=df.iloc[:,80:90].as_matrix(columns=None).ravel().tolist()
+            mat_7=df.iloc[:,90:100].as_matrix(columns=None).ravel().tolist()
+            mat_8=df.iloc[:,100:110].as_matrix(columns=None).ravel().tolist()
 
             feature_data.append(mat_1)
             feature_data.append(mat_2)
@@ -219,7 +220,7 @@ def part1():
     y_test=np.array(test_labels)
 
     # Doing the machine learning
-    nb=BernoulliNB(alpha=2).fit(X_train,y_train)
+    nb=BernoulliNB(alpha=5).fit(X_train,y_train)
     predictions=nb.predict(X_test)
 
     # The end result
