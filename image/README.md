@@ -1,10 +1,10 @@
 # Image Classifcation
 ## Steps Remaining 
-Smoothing
+Figuring Out Best Value for the Laplace Smoothing Constant
 
-Naive Bayes 
+Confusion Matrix 
 
-MAP Decision Making 
+Odds Ratios 
 
 ## Compeleted 
 Reading Input
@@ -15,4 +15,8 @@ Calculating Likelyhood
 
 Calculating Prior
 
+Smoothing
 
+Naive Bayes 
+
+MAP Decision Making 
