@@ -118,16 +118,14 @@ def map_calculation(test_digit, likelihood_list, prior):
 def overall_accuracy(testingData, list_of_likelihood, prior, testingLabels):
     correct = 0
 
-    confusion_matrix = [0] * 10
-    # for i in range(0, 10):
-    #     confusion_matrix[i] = [0] * 10
+    confusion_matrix = [0] * 2
+    for i in range(0, 2):
+        confusion_matrix[i] = [0] * 2
 
     for i in range(0, len(testingData)):
         generated_value = map_calculation(testingData[i], list_of_likelihood, prior)
         actual_value = testingLabels[i]
-        print(actual_value)
-        print(generated_value)
-        #confusion_matrix[actual_value][generated_value] += 1
+        confusion_matrix[actual_value][generated_value] += 1
         if generated_value == actual_value:
             correct += 1
     correct /= len(testingLabels)
@@ -142,3 +140,11 @@ if __name__ == "__main__":
     list_of_likelihood = pixel_likelihoods(trainingData, 0 )
     confusion_matrix, overall_probablility = overall_accuracy(testingData, list_of_likelihood, prior, testingLabels)
     print(overall_probablility)
+
+    for x in range(0, len(confusion_matrix)):
+        row = confusion_matrix[x]
+        number_of_this_digit = sum(row)
+        for i in range(0, len(row)):
+            row[i] = row[i] / number_of_this_digit
+        formatted_row = ['%.2f' % elem for elem in row]
+        print(formatted_row)
