@@ -20,6 +20,4 @@ Brief discussion of running time for training and testing for the different feat
 
 ## Steps Remaining For Extra Credit Points 
 
-Terenary features
-
-Face Data Application
+Check Face Data For errors because 51% accuracy means that we're barely better than guessing

@@ -80,4 +80,5 @@ if __name__ == "__main__":
     trainingData, trainingLabels = get_training_data()
     organ = organize_training_data(trainingData, trainingLabels)
     prior = probability_of_priors(trainingLabels)
+    print(prior)
     list_of_likelihood = pixel_likelihoods(organ)

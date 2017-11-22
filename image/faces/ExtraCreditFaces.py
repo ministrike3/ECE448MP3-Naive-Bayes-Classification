@@ -58,7 +58,7 @@ def pixel_likelihoods(faces_input, laplace_constant=1):
 
     for row in likelihood:
         new_row=[]
-        formatted_row = ['%.2f' % elem for elem in row]
+        formatted_row = ['%.3f' % elem for elem in row]
         new_row.append(formatted_row)
         print(new_row)
     return likelihood
@@ -95,23 +95,23 @@ def get_testing_data():
 
 
 def map_calculation(test_digit, likelihood_list, prior):
-    current_prob_pos = (prior)
-    current_prob_neg = (prior)
+    current_prob_pos = math.log(prior)
+    current_prob_neg = math.log(prior)
     for i in range(0, 60):
         for j in range(0, 60):
             chance_of_edge_here = likelihood_list[i][j]
             if test_digit[i][j] == '#':
-                current_prob_pos *= (chance_of_edge_here)
+                current_prob_pos *= math.log(chance_of_edge_here)
             else:
-                current_prob_pos *= ((1-chance_of_edge_here))
+                current_prob_pos *= math.log((1-chance_of_edge_here))
 
             if test_digit[i][j] != '#':
-                current_prob_neg *= (1-chance_of_edge_here)
+                current_prob_neg *= math.log(1-chance_of_edge_here)
             else:
-                current_prob_neg *= ((chance_of_edge_here))
-    if current_prob_pos>=current_prob_neg:
+                current_prob_neg *= math.log((chance_of_edge_here))
+    if current_prob_pos>current_prob_neg:
         return(1)
-    if current_prob_neg<current_prob_neg:
+    if current_prob_neg<=current_prob_neg:
         return(0)
 
 
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     testingData, testingLabels = get_testing_data()
     prior = probability_of_priors(trainingLabels)
     print(prior)
-    list_of_likelihood = pixel_likelihoods(trainingData, 0 )
+    list_of_likelihood = pixel_likelihoods(trainingData)
     confusion_matrix, overall_probablility = overall_accuracy(testingData, list_of_likelihood, prior, testingLabels)
     print(overall_probablility)
 
@@ -147,4 +147,4 @@ if __name__ == "__main__":
         for i in range(0, len(row)):
             row[i] = row[i] / number_of_this_digit
         formatted_row = ['%.2f' % elem for elem in row]
-        print(formatted_row)
+        print(row)
