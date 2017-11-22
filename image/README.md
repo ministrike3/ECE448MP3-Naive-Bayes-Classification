@@ -1,7 +1,6 @@
-# Image Classifcation
-## Steps Remaining For Full Credit
+# Image Classification
 
-odds calculation 
+## Steps Remaining For Full Credit
 
 getting best/worst matches per digit
 
