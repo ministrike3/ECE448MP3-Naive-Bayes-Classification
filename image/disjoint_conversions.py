@@ -133,6 +133,54 @@ def disjoint_featuring_conversion_2_4(data,first_number_is_y=2,second_number_is_
             og_x=0
         data[identifier] = new_array
 
+def pixel_likelihoods_2_2(organized_data, laplace_constant=1):
+    list_of = []
+    for digit in organized_data:
+        length = len(digit)
+        likelihood = [0] * 14
+        for i in range(0, 14):
+            likelihood[i] = [laplace_constant] * 14
+            for x in range(0, 14):
+                likelihood[i][x] = [laplace_constant] * 4
+        for sample in digit:
+            for i in range(0, 14):
+                for j in range(0, 14):
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == [0,0,0,0]:
+                        likelihood[i][j][0] += 1
+
+        for i in range(0, 28):
+            for j in range(0, 28):
+                for k in range(0, 3):
+                    likelihood[i][j][k] /= (length + laplace_constant * 10)
+
+        list_of.append(likelihood)
+
+    return list_of
+
 #unused
 def calc_new_array22(new_array,data,identifier):
     og_x = 0

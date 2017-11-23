@@ -49,6 +49,42 @@ def probability_of_priors(labels):
         probabilities[i] = probabilities[i] / len(labels)
     return probabilities
 
+
+def pixel_likelihoods(organized_data, laplace_constant=1):
+    list_of = []
+    for digit in organized_data:
+        length = len(digit)
+        likelihood = [0] * 28
+        for i in range(0, 28):
+            likelihood[i] = [laplace_constant] * 28
+            for x in range(0,28):
+                likelihood[i][x]=[laplace_constant] * 3
+        for sample in digit:
+            for i in range(0, 28):
+                for j in range(0, 28):
+                    if sample[i][j] == ' ':
+                        likelihood[i][j][0] += 1
+                    if sample[i][j] == '+':
+                        likelihood[i][j][1] += 1
+                    if sample[i][j] == '#':
+                        likelihood[i][j][2] += 1
+
+        for i in range(0, 28):
+            for j in range(0, 28):
+                for k in range(0,3):
+                    likelihood[i][j][k] /= (length + laplace_constant * 10)
+
+        list_of.append(likelihood)
+
+        # for row in likelihood:
+        #     new_row=[]
+        #     for item in row:
+        #         formatted_row = ['%.2f' % elem for elem in item]
+        #         new_row.append(formatted_row)
+        #     print(new_row)
+    return list_of
+
+
 if __name__ == "__main__":
     training_data, training_labels = get_training_data()
     disjoint_featuring_conversion_2_2(training_data)
