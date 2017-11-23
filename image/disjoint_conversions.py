@@ -22,8 +22,7 @@ def disjoint_featuring_conversion_2_2(data,first_number_is_y=2,second_number_is_
                     og_x+=2
             og_y+=2
             og_x=0
-    for row in new_array:
-        print(row)
+        data[identifier]=new_array
 
 def disjoint_featuring_conversion_4_4(data,first_number_is_y=4,second_number_is_x=4):
     number_of_rows = int(28 / first_number_is_y)
@@ -66,8 +65,7 @@ def disjoint_featuring_conversion_4_4(data,first_number_is_y=4,second_number_is_
 
             og_y+=4
             og_x=0
-    for row in new_array:
-        print(row)
+        data[identifier] = new_array
 
 def disjoint_featuring_conversion_4_2(data,first_number_is_y=4,second_number_is_x=2):
     number_of_rows = int(28 / first_number_is_y)
@@ -101,8 +99,7 @@ def disjoint_featuring_conversion_4_2(data,first_number_is_y=4,second_number_is_
                     og_x+=2
             og_y+=4
             og_x=0
-    for row in new_array[-2]:
-        print(row)
+        data[identifier]=new_array
 
 def disjoint_featuring_conversion_2_4(data,first_number_is_y=2,second_number_is_x=4):
     number_of_rows = int(28 / first_number_is_y)
@@ -134,8 +131,7 @@ def disjoint_featuring_conversion_2_4(data,first_number_is_y=2,second_number_is_
                     og_x+=4
             og_y+=2
             og_x=0
-    for row in new_array:
-        print(row)
+        data[identifier] = new_array
 
 #unused
 def calc_new_array22(new_array,data,identifier):

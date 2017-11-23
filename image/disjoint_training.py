@@ -1,6 +1,5 @@
 import os
-
-
+from disjoint_conversions import *
 def get_training_data():
     digit_dir = os.getcwd() + "/trainingData/"
     training_images = digit_dir + "trainingimages"
@@ -14,11 +13,11 @@ def get_training_data():
             to_append = []
             for character in line:
                 if character == ' ':
-                    to_append.append(' ')
+                    to_append.append('0')
                 elif character == '\n':
                     pass
                 else:
-                    to_append.append(character)
+                    to_append.append('1')
             current_digit_reading_in.append(to_append)
         if line_counter == 28:
             line_counter = 0
@@ -30,7 +29,6 @@ def get_training_data():
     for line in new_labels.readlines():
         labels.append(int(line))
     return train_data, labels
-
 
 def organize_training_data(training_data, training_labels):
     organized_digits = []
@@ -51,34 +49,15 @@ def probability_of_priors(labels):
         probabilities[i] = probabilities[i] / len(labels)
     return probabilities
 
-
-def pixel_likelihoods(organized_data, laplace_constant=1):
-    list_of = []
-    for digit in organized_data:
-        length = len(digit)
-        likelihood = [0] * 28
-        for i in range(0, 28):
-            likelihood[i] = [laplace_constant] * 28
-        for sample in digit:
-            for i in range(0, 28):
-                for j in range(0, 28):
-                    if sample[i][j] != ' ':
-                        likelihood[i][j] += 1
-
-        for i in range(0, 28):
-            for j in range(0, 28):
-                likelihood[i][j] /= (length + laplace_constant * 10)
-
-        list_of.append(likelihood)
-
-        # for row in likelihood:
-        #    print(row)
-    return list_of
-
-
 if __name__ == "__main__":
-    trainingData, trainingLabels = get_training_data()
-    organ = organize_training_data(trainingData, trainingLabels)
-    prior = probability_of_priors(trainingLabels)
-    print(prior)
-    list_of_likelihood = pixel_likelihoods(organ)
+    training_data, training_labels = get_training_data()
+    disjoint_featuring_conversion_2_2(training_data)
+
+    for row in training_data[-1]:
+        print(row)
+
+    sorted_by_number=organize_training_data(training_data, training_labels)
+    priors=probability_of_priors(training_labels)
+
+
+    #disjoint_featuring_conversion_2_4(training_data)
