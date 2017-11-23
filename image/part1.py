@@ -143,13 +143,13 @@ def overall_accuracy(testingData, list_of_likelihood, prior, testingLabels):
 
 
 if __name__ == "__main__":
-    trainingData, trainingLabels = get_training_data()
-    testingData, testingLabels = get_testing_data()
+    train_data, train_labels = get_training_data()
+    test_data, test_labels = get_testing_data()
 
-    organ = organize_training_data(trainingData, trainingLabels)
-    prior = probability_of_priors(trainingLabels)
+    organ = organize_training_data(train_data, train_labels)
+    prior = probability_of_priors(train_labels)
     list_of_likelihood = pixel_likelihoods(organ, 0.1)
-    confusion_matrix, overall_probablility = overall_accuracy(testingData, list_of_likelihood, prior, testingLabels)
+    confusion_matrix, overall_probablility = overall_accuracy(test_data, list_of_likelihood, prior, test_labels)
     print(overall_probablility)
     for x in range(0, len(confusion_matrix)):
         row = confusion_matrix[x]
