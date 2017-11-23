@@ -171,7 +171,7 @@ if __name__ == "__main__":
         min_index=vals[0][0]
         max_index=vals[1][0]
         print('index of least atypical', i, 'is', min_index)
-        print('index of most atypical', i, 'is', max_index) 
+        print('index of most atypical', i, 'is', max_index)
     print(overall_probablility)
     for x in range(0, len(confusion_matrix)):
         row = confusion_matrix[x]
