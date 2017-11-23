@@ -51,4 +51,5 @@ def probability_of_priors(labels):
 
 if __name__ == "__main__":
     training_data, training_labels = get_training_data()
-    disjoint_featuring_conversion_2_2(training_data,2,2)
+    disjoint_featuring_conversion_2_2(training_data)
+    #disjoint_featuring_conversion_2_4(training_data)
