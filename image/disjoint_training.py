@@ -87,7 +87,7 @@ def pixel_likelihoods(organized_data, laplace_constant=1):
 
 if __name__ == "__main__":
     training_data, training_labels = get_training_data()
-    disjoint_featuring_conversion_2_2(training_data)
+    disjoint_featuring_conversion_2_4(training_data)
 
     for row in training_data[-1]:
         print(row)
