@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from trainingFunctions import *
-from testing import *
+from part1 import *
 from math import log
+
 def plot_likelyhood(likelyhood_of_a_number):
     #here's our data to plot, all normal Python lists
     x = [i for i in range(0,len(likelyhood_of_a_number))]
