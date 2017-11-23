@@ -143,12 +143,12 @@ def overall_accuracy(testingData, list_of_likelihood, prior, testingLabels):
 
 if __name__ == "__main__":
     train_data, train_labels = get_training_data()
-    disjoint_featuring_conversion_4_2(train_data)
+    overlapping_featuring_conversion_2_2(train_data)
     sorted_by_number = organize_training_data(train_data, train_labels)
     priors = probability_of_priors(train_labels)
     blah = pixel_likelihoods(sorted_by_number,0.1)
     test_data, test_labels = get_test_data()
-    disjoint_featuring_conversion_4_2(test_data)
+    overlapping_featuring_conversion_2_2(test_data)
     confusion_matrix, overall_probablility = overall_accuracy(test_data, blah, priors, test_labels)
     print(overall_probablility)
     for x in range(0, len(confusion_matrix)):

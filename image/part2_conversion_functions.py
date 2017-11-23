@@ -110,3 +110,25 @@ def disjoint_featuring_conversion_2_4(data, first_number_is_y=2, second_number_i
             og_y += 2
             og_x = 0
         data[identifier] = new_array
+
+def overlapping_featuring_conversion_2_2(data):
+    number_of_rows = 27
+    number_of_columns = 27
+
+    for identifier in range(0, len(data)):
+        # declare a new array to transpose the original number into
+        new_array = [0] * number_of_rows
+        for i in range(0, number_of_rows):
+            new_array[i] = ['0'] * number_of_columns
+
+        # now that new array is declared must fill it with data from the original
+        og_x = 0
+        og_y = 0
+        for i in range(0, 27):
+            for j in range(0, 27):
+                new_array[i][j] = str(data[identifier][og_y][og_x]) + str(data[identifier][og_y][og_x + 1]) + str(
+                    data[identifier][og_y + 1][og_x]) + str(data[identifier][og_y + 1][og_x + 1])
+                og_x += 1
+            og_y += 1
+            og_x = 0
+        data[identifier] = new_array

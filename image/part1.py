@@ -107,7 +107,7 @@ def get_testing_data():
     return test_data, labels
 
 
-def map_calculation(test_digit, likelihood_list, prior):
+def map_calculation(test_digit, likelihood_list, prior, actual):
     bayes_calcs = []
     for x in range(0, 10):
         current_prob = prior[x]
@@ -121,25 +121,41 @@ def map_calculation(test_digit, likelihood_list, prior):
         bayes_calcs.append(current_prob)
 
     value = bayes_calcs.index(max(bayes_calcs))
-    # print(value)
-    return (value)
+    # Added this variable calc and returned calc and value as a tuple (sid function)
+    calc = bayes_calcs[actual]
+    return (value, calc)
 
 
 def overall_accuracy(testingData, list_of_likelihood, prior, testingLabels):
     correct = 0
+
+    # [[[index_min_0,probability_min_0],[index_max_0,probability_max_0]],[index_min_1,probability_min_1],[index_max_1,probability_max_1]]...]
+    min_max_match = [0] * 10
+    for i in range(0, 10):
+        min_max_match[i] = [[0,1],[0,0]]
 
     confusion_matrix = [0] * 10
     for i in range(0, 10):
         confusion_matrix[i] = [0] * 10
 
     for i in range(0, len(testingData)):
-        generated_value = map_calculation(testingData[i], list_of_likelihood, prior)
+
         actual_value = testingLabels[i]
+        generated_value, calculated_chance = map_calculation(testingData[i], list_of_likelihood, prior, actual_value)
+        if calculated_chance < min_max_match[actual_value][0][1]:
+            min_max_match[actual_value][0][0] = i
+            min_max_match[actual_value][0][1] = calculated_chance
+
+        if calculated_chance > min_max_match[actual_value][1][1]:
+            min_max_match[actual_value][1][0] = i
+            min_max_match[actual_value][1][1] = calculated_chance
+
         confusion_matrix[actual_value][generated_value] += 1
         if generated_value == actual_value:
             correct += 1
     correct /= len(testingLabels)
-    return (confusion_matrix, correct)
+    return (confusion_matrix, correct, min_max_match)
+
 
 
 if __name__ == "__main__":
@@ -149,7 +165,13 @@ if __name__ == "__main__":
     organ = organize_training_data(train_data, train_labels)
     prior = probability_of_priors(train_labels)
     list_of_likelihood = pixel_likelihoods(organ, 0.1)
-    confusion_matrix, overall_probablility = overall_accuracy(test_data, list_of_likelihood, prior, test_labels)
+    confusion_matrix, overall_probablility, minmax = overall_accuracy(test_data, list_of_likelihood, prior, test_labels)
+    for i in range(0,len(minmax)):
+        vals=minmax[i]
+        min_index=vals[0][0]
+        max_index=vals[1][0]
+        print('index of least atypical', i, 'is', min_index)
+        print('index of most atypical', i, 'is', max_index)
     print(overall_probablility)
     for x in range(0, len(confusion_matrix)):
         row = confusion_matrix[x]
