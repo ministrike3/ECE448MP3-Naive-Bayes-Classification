@@ -101,14 +101,14 @@ def map_calculation(test_digit, likelihood_list, prior):
         for j in range(0, 60):
             chance_of_edge_here = likelihood_list[i][j]
             if test_digit[i][j] == '#':
-                current_prob_pos *= math.log(chance_of_edge_here)
+                current_prob_pos += math.log(chance_of_edge_here)
             else:
-                current_prob_pos *= math.log((1-chance_of_edge_here))
+                current_prob_pos += math.log((1-chance_of_edge_here))
 
             if test_digit[i][j] != '#':
-                current_prob_neg *= math.log(1-chance_of_edge_here)
+                current_prob_neg += math.log(1-chance_of_edge_here)
             else:
-                current_prob_neg *= math.log((chance_of_edge_here))
+                current_prob_neg += math.log((chance_of_edge_here))
     if current_prob_pos>current_prob_neg:
         return(1)
     if current_prob_neg<=current_prob_neg:

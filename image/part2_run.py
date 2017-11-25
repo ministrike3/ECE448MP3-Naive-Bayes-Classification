@@ -1,5 +1,6 @@
 import os
 from part2_conversion_functions import *
+from math import log
 
 
 def get_training_data():
@@ -56,6 +57,7 @@ def probability_of_priors(labels):
 def pixel_likelihoods(organized_data, laplace_constant=1):
     number_of_rows = len(organized_data[0][0])
     number_of_columns = len(organized_data[0][0][0])
+
     number_of_possible_values = 2 ** len(organized_data[0][0][0][0])
     list_of = []
     for digit in organized_data:
@@ -113,12 +115,12 @@ def get_test_data():
 def map_calculation(test_digit, likelihood_list, prior):
     bayes_calcs = []
     for x in range(0, 10):
-        current_prob = prior[x]
+        current_prob = log(prior[x])
         for i in range(0, len(test_digit)):
             for j in range(0, len(test_digit[0])):
                 what_is_here_in_test_digit = test_digit[i][j]
                 chance_of_this = likelihood_list[x][i][j][int(what_is_here_in_test_digit, 2)]
-                current_prob *= chance_of_this
+                current_prob += log(chance_of_this)
         bayes_calcs.append(current_prob)
 
     value = bayes_calcs.index(max(bayes_calcs))
@@ -143,12 +145,12 @@ def overall_accuracy(testingData, list_of_likelihood, prior, testingLabels):
 
 if __name__ == "__main__":
     train_data, train_labels = get_training_data()
-    overlapping_featuring_conversion_2_3(train_data)
+    overlapping_featuring_conversion_4_4(train_data)
     sorted_by_number = organize_training_data(train_data, train_labels)
     priors = probability_of_priors(train_labels)
-    blah = pixel_likelihoods(sorted_by_number,0.1)
+    blah = pixel_likelihoods(sorted_by_number, 0.1)
     test_data, test_labels = get_test_data()
-    overlapping_featuring_conversion_2_3(test_data)
+    overlapping_featuring_conversion_4_4(test_data)
     confusion_matrix, overall_probablility = overall_accuracy(test_data, blah, priors, test_labels)
     print(overall_probablility)
     for x in range(0, len(confusion_matrix)):
