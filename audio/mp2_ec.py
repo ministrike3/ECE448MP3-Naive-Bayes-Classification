@@ -237,7 +237,7 @@ def part1():
     print()
     print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
     print()
-    print("Accuracy: "+str(accuracy_score(y_test, predictions)))
+    print("Overall Accuracy: "+str(accuracy_score(y_test, predictions)))
 
 
 
@@ -303,7 +303,7 @@ def part2(yesno=True):
         print()
         print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
         print()
-        print("Accuracy: "+str(accuracy_score(y_test, predictions)))
+        print("Overall Accuracy: "+str(accuracy_score(y_test, predictions)))
 
     # Running LDA on digits corpus
     else:
@@ -350,7 +350,7 @@ def part2(yesno=True):
         print()
         print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
         print()
-        print("Accuracy: "+str(accuracy_score(y_test, predictions)))
+        print("Overall Accuracy: "+str(accuracy_score(y_test, predictions)))
 
 
 
@@ -419,7 +419,7 @@ def part3(bin_val=True):
         print()
         print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
         print()
-        print("Accuracy: "+str(accuracy_score(y_test, predictions)))
+        print("Overall Accuracy: "+str(accuracy_score(y_test, predictions)))
 
     else:
 
@@ -454,4 +454,4 @@ def part3(bin_val=True):
         print()
         print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
         print()
-        print("Accuracy: "+str(accuracy_score(y_test, predictions)))
+        print("Overall Accuracy: "+str(accuracy_score(y_test, predictions)))
