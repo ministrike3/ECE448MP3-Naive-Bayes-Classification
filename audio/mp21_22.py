@@ -1,6 +1,7 @@
 import sys
 import os
 import numpy as np
+import pandas as pd
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 
 np.set_printoptions(precision=6)
@@ -128,11 +129,21 @@ def part_1():
     predictions=nb.predict(X_test)
 
     # The end result
-    print("Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+    new_confusion_matrix=[]
+    for dim in list(range(confusion_matrix(y_test, predictions).shape[0])):
+        dimension_1=confusion_matrix(y_test, predictions)[dim]/confusion_matrix(y_test, predictions)[dim].sum()
+        list_dimension=dimension_1.tolist()
+        new_confusion_matrix.append(list_dimension)
+
+    new_confusion_matrix=np.array(new_confusion_matrix)
+
+    print("Raw Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+    print()
+    print("Percentage Confusion Matrix: "+ "\n" +str(new_confusion_matrix))
     print()
     print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
     print()
-    print("Accuracy: "+str(accuracy_score(y_test, predictions)))
+    print("Overall Accuracy: "+str(accuracy_score(y_test, predictions)))
 
 
 
@@ -176,7 +187,17 @@ def part_2():
         predictions[i]=predictions[i]+1
 
     # The end result
-    print("Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+    # The end result
+    new_confusion_matrix=[]
+    for dim in list(range(confusion_matrix(y_test, predictions).shape[0])):
+        dimension_1=confusion_matrix(y_test, predictions)[dim]/confusion_matrix(y_test, predictions)[dim].sum()
+        list_dimension=dimension_1.tolist()
+        new_confusion_matrix.append(list_dimension)
+
+    new_confusion_matrix=np.array(new_confusion_matrix)
+    print("Raw Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+    print()
+    print("Percentage Confusion Matrix: "+ "\n" +str(new_confusion_matrix))
     print()
     print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
     print()

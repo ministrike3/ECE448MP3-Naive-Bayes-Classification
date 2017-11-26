@@ -224,7 +224,16 @@ def part1():
     predictions=nb.predict(X_test)
 
     # The end result
-    print("Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+    new_confusion_matrix=[]
+    for dim in list(range(confusion_matrix(y_test, predictions).shape[0])):
+        dimension_1=confusion_matrix(y_test, predictions)[dim]/confusion_matrix(y_test, predictions)[dim].sum()
+        list_dimension=dimension_1.tolist()
+        new_confusion_matrix.append(list_dimension)
+
+    new_confusion_matrix=np.array(new_confusion_matrix)
+    print("Raw Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+    print()
+    print("Percentage Confusion Matrix: "+ "\n" +str(new_confusion_matrix))
     print()
     print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
     print()
@@ -281,7 +290,16 @@ def part2(yesno=True):
         predictions=lda_model.predict(X_test)
 
         # The end result
-        print("Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+        new_confusion_matrix=[]
+        for dim in list(range(confusion_matrix(y_test, predictions).shape[0])):
+            dimension_1=confusion_matrix(y_test, predictions)[dim]/confusion_matrix(y_test, predictions)[dim].sum()
+            list_dimension=dimension_1.tolist()
+            new_confusion_matrix.append(list_dimension)
+
+        new_confusion_matrix=np.array(new_confusion_matrix)
+        print("Raw Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+        print()
+        print("Percentage Confusion Matrix: "+ "\n" +str(new_confusion_matrix))
         print()
         print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
         print()
@@ -319,7 +337,16 @@ def part2(yesno=True):
         predictions=lda_model.predict(X_test)
 
         # The end result
-        print("Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+        new_confusion_matrix=[]
+        for dim in list(range(confusion_matrix(y_test, predictions).shape[0])):
+            dimension_1=confusion_matrix(y_test, predictions)[dim]/confusion_matrix(y_test, predictions)[dim].sum()
+            list_dimension=dimension_1.tolist()
+            new_confusion_matrix.append(list_dimension)
+
+        new_confusion_matrix=np.array(new_confusion_matrix)
+        print("Raw Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+        print()
+        print("Percentage Confusion Matrix: "+ "\n" +str(new_confusion_matrix))
         print()
         print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
         print()
@@ -379,7 +406,16 @@ def part3(bin_val=True):
         predictions=bnb.predict(X_test)
 
         # The end result
-        print("Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+        new_confusion_matrix=[]
+        for dim in list(range(confusion_matrix(y_test, predictions).shape[0])):
+            dimension_1=confusion_matrix(y_test, predictions)[dim]/confusion_matrix(y_test, predictions)[dim].sum()
+            list_dimension=dimension_1.tolist()
+            new_confusion_matrix.append(list_dimension)
+
+        new_confusion_matrix=np.array(new_confusion_matrix)
+        print("Raw Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+        print()
+        print("Percentage Confusion Matrix: "+ "\n" +str(new_confusion_matrix))
         print()
         print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
         print()
@@ -405,7 +441,16 @@ def part3(bin_val=True):
         predictions=mnb.predict(X_test)
 
         # The end result
-        print("Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+        new_confusion_matrix=[]
+        for dim in list(range(confusion_matrix(y_test, predictions).shape[0])):
+            dimension_1=confusion_matrix(y_test, predictions)[dim]/confusion_matrix(y_test, predictions)[dim].sum()
+            list_dimension=dimension_1.tolist()
+            new_confusion_matrix.append(list_dimension)
+
+        new_confusion_matrix=np.array(new_confusion_matrix)
+        print("Raw Confusion Matrix: "+ "\n" +str(confusion_matrix(y_test, predictions)))
+        print()
+        print("Percentage Confusion Matrix: "+ "\n" +str(new_confusion_matrix))
         print()
         print("Classification_report: "+ "\n" + str(classification_report(y_test, predictions)))
         print()
