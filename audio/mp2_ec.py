@@ -72,8 +72,9 @@ def feature_tuner(training_data, length2, width):
 def binarize(input_data):
     length=len(input_data)
     for i in list(range(length)):
+        avg_val=mean(input_data[i])
         for j in list(range(len(input_data[i]))):
-            if (input_data[i][j]<0.5):
+            if (input_data[i][j]<avg_val):
                 input_data[i][j]=0
             else:
                 input_data[i][j]=1
@@ -402,7 +403,7 @@ def part3(bin_val=True):
         y_test=np.array(test_labels)
 
         # Doing the machine learning
-        bnb=BernoulliNB(alpha=5).fit(X_train,y_train)
+        bnb=BernoulliNB(alpha=0.1).fit(X_train,y_train)
         predictions=bnb.predict(X_test)
 
         # The end result
