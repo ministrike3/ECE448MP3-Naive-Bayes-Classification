@@ -139,6 +139,28 @@ def map_calculation(test_digit, likelihood_list, prior):
     # print(value)
     return (value)
 
+def map_calculation(test_digit, likelihood_list, prior, actual):
+    bayes_calcs = []
+    for x in range(0, 10):
+        current_prob = prior[x]
+        for i in range(0, 28):
+            for j in range(0, 28):
+                chance_of_1_here = likelihood_list[x][i][j]
+                if test_digit[i][j] == ' ':
+                    current_prob *= (1 - chance_of_1_here)
+                else:
+                    current_prob *= chance_of_1_here
+        bayes_calcs.append(current_prob)
+
+    value = bayes_calcs.index(max(bayes_calcs))
+    # Added this variable calc and returned calc and value as a tuple (sid function)
+    calc = bayes_calcs[actual]
+    return (value, calc)
+
+
+
+
+
 
 def overall_accuracy(testingData, list_of_likelihood, prior, testingLabels):
     correct = 0

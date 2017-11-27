@@ -1,6 +1,7 @@
 import os
 from part2_conversion_functions import *
 from math import log
+import time
 
 
 def get_training_data():
@@ -145,18 +146,25 @@ def overall_accuracy(testingData, list_of_likelihood, prior, testingLabels):
 
 if __name__ == "__main__":
     train_data, train_labels = get_training_data()
-    overlapping_featuring_conversion_4_4(train_data)
+    start = time.time()
+    disjoint_featuring_conversion_2_2(train_data)
     sorted_by_number = organize_training_data(train_data, train_labels)
     priors = probability_of_priors(train_labels)
     blah = pixel_likelihoods(sorted_by_number, 0.1)
+    end = time.time()
+    print('Time taken to train',end - start)
+
     test_data, test_labels = get_test_data()
-    overlapping_featuring_conversion_4_4(test_data)
+    start = time.time()
+    disjoint_featuring_conversion_2_2(test_data)
     confusion_matrix, overall_probablility = overall_accuracy(test_data, blah, priors, test_labels)
+    end = time.time()
+    print('Time Taken to Test',end - start)
     print(overall_probablility)
-    for x in range(0, len(confusion_matrix)):
-        row = confusion_matrix[x]
-        number_of_this_digit = sum(row)
-        for i in range(0, len(row)):
-            row[i] = row[i] / number_of_this_digit
-        formatted_row = ['%.2f' % elem for elem in row]
-        print(formatted_row)
+    # for x in range(0, len(confusion_matrix)):
+    #     row = confusion_matrix[x]
+    #     number_of_this_digit = sum(row)
+    #     for i in range(0, len(row)):
+    #         row[i] = row[i] / number_of_this_digit
+    #     formatted_row = ['%.2f' % elem for elem in row]
+    #     print(formatted_row)
