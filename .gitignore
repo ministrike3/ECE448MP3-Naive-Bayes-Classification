@@ -100,3 +100,6 @@ ENV/
 .idea/
 # mypy
 .mypy_cache/
+
+audio/.DS_Store
+
