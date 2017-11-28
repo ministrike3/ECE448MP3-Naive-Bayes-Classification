@@ -127,7 +127,7 @@ def overall_accuracy(testingData, list_of_likelihood, prior, testingLabels):
 
     min_max_match = [0] * 2
     for i in range(0, 2):
-        min_max_match[i] = [[0,1],[0,0]]
+        min_max_match[i] = [[0, 1], [0, -100000]]
 
     confusion_matrix = [0] * 2
     for i in range(0, 2):
@@ -167,8 +167,8 @@ if __name__ == "__main__":
         vals=minmax[i]
         min_index=vals[0][0]
         max_index=vals[1][0]
-        print('index of least atypical', i, 'is', min_index)
-        print('index of most atypical', i, 'is', max_index)
+        print('index of least atypical', i, 'is', min_index*70,(min_index+1)*70)
+        print('index of most atypical', i, 'is', max_index*70,(max_index+1)*70)
     print(overall_probablility)
     for x in range(0, len(confusion_matrix)):
         row = confusion_matrix[x]
